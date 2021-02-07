@@ -50,7 +50,7 @@ class _TimerState extends State<Timer> {
               });
             },
           ),
-          FlatButton(
+          TextButton(
             onPressed: () {
               print('Stopped:' + '$_isStop');
               setState(
