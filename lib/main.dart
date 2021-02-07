@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-import 'screens/set_timer.dart';
+import 'screens/setting.dart';
 import 'screens/stats.dart';
 import 'screens/timer.dart';
 
@@ -16,7 +16,7 @@ class _EnsoState extends State<Enso> {
   int _currentScreen = 0;
   List<Widget> _screens = [
     Timer(),
-    SetTimer(),
+    Setting(),
     Stats(),
   ];
 
@@ -33,10 +33,15 @@ class _EnsoState extends State<Enso> {
       ),
       home: Scaffold(
         appBar: AppBar(
-          title: Center(child: Text('Enso')),
+          title: Center(
+              child: Text(
+            'MediTimer',
+            style: TextStyle(color: Colors.amber.shade200),
+          )),
         ),
         body: _screens[_currentScreen],
         bottomNavigationBar: BottomNavigationBar(
+          unselectedItemColor: Colors.amber.shade200,
           currentIndex: _currentScreen,
           fixedColor: Color(0xFFEB1555),
           onTap: (int index) {

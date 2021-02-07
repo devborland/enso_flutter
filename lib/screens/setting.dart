@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-class SetTimer extends StatefulWidget {
+class Setting extends StatefulWidget {
   @override
-  _SetTimerState createState() => _SetTimerState();
+  _SettingState createState() => _SettingState();
 }
 
-class _SetTimerState extends State<SetTimer> {
+class _SettingState extends State<Setting> {
   @override
   Widget build(BuildContext context) {
     return Center(child: Text('Set Timer'));
