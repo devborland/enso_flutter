@@ -50,6 +50,7 @@ class _TimerState extends State<Timer> {
               });
             },
           ),
+          SizedBox(height: 30.0),
           TextButton(
             onPressed: () {
               print('Stopped:' + '$_isStop');
@@ -58,6 +59,7 @@ class _TimerState extends State<Timer> {
                   if (_isStop) {
                     _isStop = false;
                     _controller.pause();
+                    print(_controller.getTime());
                   } else {
                     _isStop = true;
                     _controller.start();
@@ -78,7 +80,7 @@ class _TimerState extends State<Timer> {
             ),
           ),
           SizedBox(
-            height: 80.0,
+            height: 30.0,
           )
         ],
       ),
