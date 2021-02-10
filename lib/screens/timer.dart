@@ -1,7 +1,5 @@
 import 'package:circular_countdown_timer/circular_countdown_timer.dart';
 import 'package:flutter/material.dart';
-// ignore: unused_import
-import '../widgets/circular_timer.dart';
 
 class Timer extends StatefulWidget {
   @override
@@ -9,7 +7,7 @@ class Timer extends StatefulWidget {
 }
 
 class _TimerState extends State<Timer> {
-  int _duration = 35;
+  int _duration = 5;
   CountDownController _controller = CountDownController();
   bool _isStop = false;
 
@@ -26,7 +24,7 @@ class _TimerState extends State<Timer> {
             height: MediaQuery.of(context).size.height / 1.66,
             color: Colors.amber.shade200,
             fillColor: Color(0xFFEB1555),
-            strokeWidth: 20.0,
+            strokeWidth: 4.0,
             strokeCap: StrokeCap.round,
             textStyle: TextStyle(
                 fontSize: 34.0,
@@ -35,7 +33,7 @@ class _TimerState extends State<Timer> {
             textFormat: (_duration < 3600)
                 ? CountdownTextFormat.MM_SS
                 : CountdownTextFormat.HH_MM_SS,
-            isReverse: true,
+            isReverse: false,
             isReverseAnimation: false,
             isTimerTextShown: true,
             autoStart: false,
@@ -45,6 +43,7 @@ class _TimerState extends State<Timer> {
             },
             onComplete: () {
               print('Countdown Ended');
+              print(_controller.getTime());
               setState(() {
                 _isStop = false;
               });
@@ -59,7 +58,6 @@ class _TimerState extends State<Timer> {
                   if (_isStop) {
                     _isStop = false;
                     _controller.pause();
-                    print(_controller.getTime());
                   } else {
                     _isStop = true;
                     _controller.start();
@@ -71,7 +69,11 @@ class _TimerState extends State<Timer> {
               padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 40.0),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(8.0),
-                color: Color(0xFFEB1555),
+                border: Border.all(
+                  color: Color(0xFFEB1555),
+                  width: 4.0,
+                ),
+                // color: Color(0xFFEB1555),
               ),
               child: Text(
                 _isStop ? ' STOP ' : 'START',
@@ -79,9 +81,7 @@ class _TimerState extends State<Timer> {
               ),
             ),
           ),
-          SizedBox(
-            height: 30.0,
-          )
+          SizedBox(height: 30.0),
         ],
       ),
     );

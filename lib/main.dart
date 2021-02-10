@@ -36,7 +36,7 @@ class _EnsoState extends State<Enso> {
           title: Center(
               child: Text(
             'MediTimer',
-            style: TextStyle(color: Colors.amber.shade200),
+            style: TextStyle(color: Colors.amber.shade100),
           )),
         ),
         body: _screens[_currentScreen],
