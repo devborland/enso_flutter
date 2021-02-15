@@ -1,5 +1,7 @@
 import 'package:circular_countdown_timer/circular_countdown_timer.dart';
+import 'package:enso_flutter/widgets/button.dart';
 import 'package:flutter/material.dart';
+import '../widgets/circle_timer.dart';
 
 class Timer extends StatefulWidget {
   @override
@@ -11,76 +13,50 @@ class _TimerState extends State<Timer> {
   CountDownController _controller = CountDownController();
   bool _isStop = false;
 
+  void _toggleStartButton() {
+    print('Stopped:' + '$_isStop');
+    setState(
+      () {
+        if (_isStop) {
+          _isStop = false;
+          _controller.pause();
+        } else {
+          _isStop = true;
+          _controller.start();
+        }
+      },
+    );
+  }
+
+  void _onTimerStart() {
+    print('Countdown Started');
+    _isStop = true;
+  }
+
+  void _onTimerComplete() {
+    print('Countdown Ended');
+    print(_controller.getTime());
+    setState(() {
+      _isStop = false;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
+    double _timerRadius = MediaQuery.of(context).size.width / 1.7;
     return Center(
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          CircularCountDownTimer(
+          CircleTimer(
             duration: _duration,
+            timerRadius: _timerRadius,
             controller: _controller,
-            width: MediaQuery.of(context).size.width / 1.66,
-            height: MediaQuery.of(context).size.height / 1.66,
-            color: Colors.amber.shade200,
-            fillColor: Color(0xFFEB1555),
-            strokeWidth: 4.0,
-            strokeCap: StrokeCap.round,
-            textStyle: TextStyle(
-                fontSize: 34.0,
-                color: Colors.amber.shade200,
-                fontWeight: FontWeight.bold),
-            textFormat: (_duration < 3600)
-                ? CountdownTextFormat.MM_SS
-                : CountdownTextFormat.HH_MM_SS,
-            isReverse: false,
-            isReverseAnimation: false,
-            isTimerTextShown: true,
-            autoStart: false,
-            onStart: () {
-              print('Countdown Started');
-              _isStop = true;
-            },
-            onComplete: () {
-              print('Countdown Ended');
-              print(_controller.getTime());
-              setState(() {
-                _isStop = false;
-              });
-            },
+            onStart: _onTimerStart,
+            onComplete: _onTimerComplete,
           ),
-          SizedBox(height: 30.0),
-          TextButton(
-            onPressed: () {
-              print('Stopped:' + '$_isStop');
-              setState(
-                () {
-                  if (_isStop) {
-                    _isStop = false;
-                    _controller.pause();
-                  } else {
-                    _isStop = true;
-                    _controller.start();
-                  }
-                },
-              );
-            },
-            child: Container(
-              padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 40.0),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(8.0),
-                border: Border.all(
-                  color: Color(0xFFEB1555),
-                  width: 4.0,
-                ),
-                // color: Color(0xFFEB1555),
-              ),
-              child: Text(
-                _isStop ? ' STOP ' : 'START',
-                style: TextStyle(fontSize: 24.0, color: Colors.amber.shade200),
-              ),
-            ),
-          ),
+          SizedBox(height: 1.0),
+          Button(isStop: _isStop, onPressed: _toggleStartButton),
           SizedBox(height: 30.0),
         ],
       ),
