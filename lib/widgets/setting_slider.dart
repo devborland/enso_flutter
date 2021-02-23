@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 
 class SettingSlider extends StatelessWidget {
+  final int value;
+  final Function onMove;
+
   SettingSlider({
     @required this.value,
     @required this.onMove,
   });
-  final double value;
-  final Function onMove;
 
   @override
   Widget build(BuildContext context) {

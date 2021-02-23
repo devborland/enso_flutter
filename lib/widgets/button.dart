@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import '../providers/timer.dart';
 
 class Button extends StatelessWidget {
-  final bool isStop;
   final Function onPressed;
-  Button({this.isStop, this.onPressed});
+  Button({this.onPressed});
 
   @override
   Widget build(BuildContext context) {
+    final timer = Provider.of<Timer>(context);
     return TextButton(
       onPressed: onPressed,
       child: Container(
@@ -17,10 +20,10 @@ class Button extends StatelessWidget {
             color: Color(0xFFEB1555),
             width: 4.0,
           ),
-          color: isStop ? Color(0x11EB1555) : Color(0x00EB1555),
+          color: timer.isStarted ? Color(0xFFEB1555) : Color(0x00EB1555),
         ),
         child: Text(
-          isStop ? ' STOP ' : 'START',
+          timer.isStarted ? ' STOP ' : 'START',
           style: TextStyle(fontSize: 24.0, color: Colors.amber.shade200),
         ),
       ),
